@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn tập Lịch sử Đảng Cộng sản Việt Nam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Visualization & Content Choices:
+        - Bối cảnh lịch sử: Goal: Inform. Method: Two-column text (HTML/Tailwind). Interaction: Click to expand details. Justification: Clear separation of factors.
+        - Hội nghị thành lập Đảng: Goal: Inform facts. Method: Key-value text (HTML). Interaction: Direct display. Justification: Factual recall.
+        - So sánh Luận cương/Cương lĩnh: Goal: Compare. Method: Side-by-side text or toggle view (HTML/JS). Interaction: Toggle. Justification: Direct comparison.
+        - Các chiến dịch/Đại hội: Goal: Inform details. Method: Expandable lists/sections (HTML/JS). Interaction: Click to reveal. Justification: Focused detail on demand.
+        - Timeline elements (if any): Goal: Show sequence. Method: Styled HTML list. Interaction: Static or hover. Justification: Simple chronological overview.
+        - No charts are used as the source is primarily textual and event-based. Focus is on interactive text presentation.
+        - Library/Method: Vanilla JS for interactions, Tailwind CSS for layout and styling.
+        -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf6; /* Warm cream background */
+        }
+        .nav-button {
+            background-color: #e0e0e0; /* Light gray for nav buttons */
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        .nav-button.active, .nav-button:hover {
+            background-color: #c0a080; /* Muted gold for active/hover */
+            color: #fff;
+        }
+        .content-card {
+            background-color: #f5f5f5; /* Lighter beige for content cards */
+            border-left: 5px solid #c0a080; /* Muted gold accent */
+        }
+        .content-card h3 {
+            color: #5d4037; /* Soft brown for titles */
+        }
+        .details {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+        }
+        .details.open {
+            padding: 1rem;
+            max-height: 1000px; /* Adjust as needed */
+        }
+        .search-highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background-color: #e9e2d8;
+        }
+         ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fdfbf6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c0a080;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a08060;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <div class="container mx-auto p-4 max-w-5xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-[#5d4037]">Ôn tập Lịch sử Đảng Cộng sản Việt Nam</h1>
+            <p class="text-lg text-gray-600">Nội dung trọng tâm cho kỳ thi trắc nghiệm</p>
+        </header>
+
+        <div class="mb-6">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm từ khóa (ví dụ: Cương lĩnh, Điện Biên Phủ)..." class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#c0a080] focus:border-[#c0a080]">
+        </div>
+
+        <nav class="flex flex-wrap justify-center gap-2 mb-8">
+            <button class="nav-button py-2 px-4 rounded-lg shadow font-semibold" data-target="chuong1">Chương 1</button>
+            <button class="nav-button py-2 px-4 rounded-lg shadow font-semibold" data-target="chuong2">Chương 2</button>
+            <button class="nav-button py-2 px-4 rounded-lg shadow font-semibold" data-target="chuong3">Chương 3</button>
+        </nav>
+
+        <main id="contentArea">
+            <div id="chuong1" class="content-section space-y-6 hidden">
+                <h2 class="text-3xl font-semibold text-[#5d4037] border-b-2 border-[#c0a080] pb-2">Chương 1: Đảng Cộng sản Việt Nam ra đời và lãnh đạo đấu tranh giành chính quyền (1930 – 1945)</h2>
+                <p class="italic text-gray-700">Chương này trình bày bối cảnh lịch sử dẫn đến sự ra đời của Đảng Cộng sản Việt Nam, các hội nghị và văn kiện quan trọng, cũng như quá trình Đảng lãnh đạo các phong trào đấu tranh кульминация là Cách mạng Tháng Tám năm 1945, giành lại độc lập cho dân tộc.</p>
+                
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">1. Bối cảnh lịch sử <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Hoàn cảnh quốc tế:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Ảnh hưởng của Cách mạng Tháng Mười Nga (1917).</li>
+                            <li>Sự ra đời của Quốc tế Cộng sản (1919).</li>
+                            <li>Phong trào giải phóng dân tộc phát triển mạnh mẽ trên thế giới.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Hoàn cảnh trong nước:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Pháp xâm lược Việt Nam năm 1858, đến năm 1884 Việt Nam chính thức trở thành thuộc địa của Pháp.</li>
+                            <li>Xã hội Việt Nam có nhiều mâu thuẫn: mâu thuẫn giữa toàn thể dân tộc Việt Nam với đế quốc Pháp và tay sai; mâu thuẫn giữa nông dân với địa chủ phong kiến.</li>
+                            <li>Các phong trào yêu nước theo khuynh hướng phong kiến (Cần Vương, khởi nghĩa Yên Thế) và tư sản (Phan Bội Châu, Phan Chu Trinh, Việt Nam Quốc Dân Đảng) lần lượt thất bại.</li>
+                            <li>Phong trào yêu nước theo khuynh hướng vô sản: Nguyễn Ái Quốc tìm đường cứu nước, truyền bá chủ nghĩa Mác-Lênin vào Việt Nam, thành lập các tổ chức cộng sản tiền thân.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">2. Hội nghị thành lập Đảng <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Thời gian:</strong> Từ ngày 6/1 đến ngày 7/2/1930 (thường lấy ngày 3/2/1930).</li>
+                            <li><strong>Địa điểm:</strong> Cửu Long, Hương Cảng, Trung Quốc.</li>
+                            <li><strong>Thành phần tham gia:</strong> Đại biểu của Đông Dương Cộng sản Đảng, An Nam Cộng sản Đảng, dưới sự chủ trì của Nguyễn Ái Quốc (đại diện Quốc tế Cộng sản).</li>
+                            <li><strong>Nội dung:</strong> Thống nhất các tổ chức cộng sản thành một đảng duy nhất lấy tên là Đảng Cộng sản Việt Nam; thông qua Chánh cương vắn tắt, Sách lược vắn tắt, Điều lệ tóm tắt của Đảng (gọi chung là Cương lĩnh chính trị đầu tiên).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">3. Ý nghĩa ra đời của Đảng Cộng sản Việt Nam và Cương lĩnh chính trị đầu tiên <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Ý nghĩa ra đời của Đảng:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Chấm dứt sự khủng hoảng về đường lối cứu nước và giai cấp lãnh đạo cách mạng Việt Nam.</li>
+                            <li>Là sản phẩm của sự kết hợp chủ nghĩa Mác-Lênin với phong trào công nhân và phong trào yêu nước Việt Nam.</li>
+                            <li>Cách mạng Việt Nam trở thành một bộ phận khăng khít của cách mạng thế giới.</li>
+                            <li>Là bước ngoặt vĩ đại trong lịch sử cách mạng Việt Nam.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Nội dung cơ bản của Cương lĩnh chính trị đầu tiên:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Đường lối chiến lược:</strong> Tiến hành "tư sản dân quyền cách mạng và thổ địa cách mạng để đi tới xã hội cộng sản".</li>
+                            <li><strong>Nhiệm vụ:</strong> Đánh đổ đế quốc Pháp, phong kiến tay sai, làm cho nước Việt Nam hoàn toàn độc lập, tự do; lập chính phủ công nông binh; tổ chức quân đội công nông; tịch thu ruộng đất của đế quốc và địa chủ phản cách mạng chia cho dân cày nghèo.</li>
+                            <li><strong>Lực lượng cách mạng:</strong> Công nhân, nông dân là gốc, đồng thời lôi kéo tiểu tư sản, trí thức, trung nông về phía giai cấp vô sản; phú nông, trung tiểu địa chủ, tư sản dân tộc thì lợi dụng hoặc trung lập.</li>
+                            <li><strong>Lãnh đạo cách mạng:</strong> Giai cấp công nhân thông qua đội tiên phong là Đảng Cộng sản.</li>
+                            <li><strong>Quan hệ quốc tế:</strong> Cách mạng Việt Nam là một bộ phận của cách mạng thế giới, liên kết với các dân tộc bị áp bức và giai cấp vô sản thế giới.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">4. Luận cương chính trị (10/1930) <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Hoàn cảnh ra đời:</strong> Hội nghị Ban Chấp hành Trung ương lâm thời Đảng Cộng sản Việt Nam tháng 10/1930 tại Hương Cảng (Trung Quốc), do Trần Phú chủ trì.</p>
+                        <p><strong>Nội dung Luận cương:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Phương hướng chiến lược:</strong> Cách mạng tư sản dân quyền, sau đó bỏ qua thời kỳ tư bản chủ nghĩa, tiến thẳng lên con đường xã hội chủ nghĩa.</li>
+                            <li><strong>Nhiệm vụ:</strong> Đánh đổ phong kiến và đế quốc. Hai nhiệm vụ này có quan hệ khăng khít.</li>
+                            <li><strong>Lực lượng cách mạng:</strong> Giai cấp công nhân và nông dân.</li>
+                            <li><strong>Lãnh đạo cách mạng:</strong> Giai cấp công nhân với đội tiên phong là Đảng Cộng sản.</li>
+                            <li><strong>Mối quan hệ với cách mạng thế giới:</strong> Cách mạng Đông Dương là một bộ phận của cách mạng vô sản thế giới.</li>
+                        </ul>
+                        <p class="mt-2"><strong>So sánh Luận cương với Cương lĩnh chính trị đầu tiên:</strong></p>
+                        <table class="w-full comparison-table my-2">
+                            <thead>
+                                <tr>
+                                    <th>Tiêu chí</th>
+                                    <th>Cương lĩnh chính trị đầu tiên (2/1930)</th>
+                                    <th>Luận cương chính trị (10/1930)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Nhiệm vụ cách mạng</td>
+                                    <td>Chống đế quốc và phong kiến tay sai. Nhiệm vụ dân tộc giải phóng đặt lên hàng đầu.</td>
+                                    <td>Chống phong kiến và đế quốc. Nhấn mạnh hai nhiệm vụ có quan hệ khăng khít, nặng về đấu tranh giai cấp.</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Lực lượng cách mạng</td>
+                                    <td>Công nhân, nông dân, tiểu tư sản, trí thức, lợi dụng hoặc trung lập phú nông, trung tiểu địa chủ, tư sản dân tộc. Đoàn kết rộng rãi.</td>
+                                    <td>Công nhân và nông dân. Chưa thấy vai trò, khả năng cách mạng của các giai tầng khác.</td>
+                                 </tr>
+                            </tbody>
+                        </table>
+                        <p class="mt-2"><strong>Hạn chế của Luận cương:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Chưa nêu rõ mâu thuẫn chủ yếu của xã hội Đông Dương, không đặt nhiệm vụ giải phóng dân tộc lên hàng đầu.</li>
+                            <li>Đánh giá không đúng khả năng cách mạng của các giai cấp, tầng lớp ngoài công nông (tiểu tư sản, tư sản dân tộc, địa chủ vừa và nhỏ).</li>
+                            <li>Nặng về đấu tranh giai cấp, chưa thấy được vấn đề dân tộc.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">5. Phong trào dân chủ 1936 – 1939 <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Hoàn cảnh lịch sử:</strong></p>
+                         <ul class="list-disc list-inside ml-4">
+                            <li>Thế giới: Khủng hoảng kinh tế 1929-1933; Chủ nghĩa phát xít lên cầm quyền ở một số nước; Đại hội VII Quốc tế Cộng sản (7/1935) chủ trương thành lập Mặt trận Nhân dân chống phát xít và chiến tranh.</li>
+                            <li>Trong nước: Mặt trận Nhân dân Pháp lên cầm quyền, ban hành một số chính sách nới lỏng ở thuộc địa.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Chủ trương của Đảng:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Văn kiện: Nghị quyết Hội nghị Ban Chấp hành Trung ương Đảng (7/1936).</li>
+                            <li>Nhiệm vụ trước mắt: Chống phát xít, chống chiến tranh đế quốc, chống phản động thuộc địa, đòi tự do, dân chủ, cơm áo, hòa bình.</li>
+                            <li>Kẻ thù: Bọn phản động thuộc địa và tay sai.</li>
+                            <li>Hình thức tổ chức và đấu tranh: Hợp pháp, nửa hợp pháp, công khai, nửa công khai. Thành lập Mặt trận Thống nhất Nhân dân Phản đế Đông Dương (sau đổi thành Mặt trận Dân chủ Đông Dương).</li>
+                        </ul>
+                        <p class="mt-2"><strong>Các phong trào tiêu biểu:</strong></p>
+                         <ul class="list-disc list-inside ml-4">
+                            <li>Phong trào Đông Dương Đại hội.</li>
+                            <li>Phong trào đấu tranh đòi dân sinh, dân chủ trên các lĩnh vực báo chí, nghị trường.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Kết quả, ý nghĩa:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Quần chúng được giác ngộ về chính trị, Đảng tập hợp được lực lượng đông đảo.</li>
+                            <li>Đảng tích lũy được nhiều kinh nghiệm trong việc xây dựng mặt trận, tổ chức và lãnh đạo đấu tranh.</li>
+                            <li>Là cuộc tập dượt lần thứ hai cho Cách mạng Tháng Tám.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">6. Giai đoạn 1939 – 1945: Đảng lãnh đạo đấu tranh giải phóng dân tộc <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Tình hình thế giới và trong nước:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Thế giới: Chiến tranh thế giới thứ hai bùng nổ (9/1939). Pháp đầu hàng Đức. Nhật nhảy vào Đông Dương (9/1940).</li>
+                            <li>Trong nước: Pháp-Nhật cấu kết áp bức bóc lột nhân dân ta. Mâu thuẫn dân tộc trở nên gay gắt nhất.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Chủ trương của Đảng:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Hội nghị TW 6 (11/1939):</strong> Đặt nhiệm vụ giải phóng dân tộc lên hàng đầu. Quyết định thành lập Mặt trận Thống nhất Dân tộc Phản đế Đông Dương. Tạm gác khẩu hiệu cách mạng ruộng đất.</li>
+                            <li><strong>Hội nghị TW 7 (11/1940):</strong> Duy trì chủ trương của Hội nghị TW 6. Quyết định đình chỉ khởi nghĩa Nam Kỳ.</li>
+                            <li><strong>Hội nghị TW 8 (5/1941) do Nguyễn Ái Quốc chủ trì:</strong> Hoàn chỉnh chủ trương chuyển hướng chỉ đạo chiến lược. Khẳng định giải phóng dân tộc là nhiệm vụ bức thiết nhất. Thành lập Mặt trận Việt Nam Độc lập Đồng minh (Việt Minh). Xúc tiến xây dựng lực lượng chính trị, vũ trang, căn cứ địa cách mạng.</li>
+                        </ul>
+                         <p class="mt-2"><strong>Các sự kiện chính:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Xây dựng lực lượng: Cứu quốc quân, Việt Nam Tuyên truyền Giải phóng quân (22/12/1944).</li>
+                            <li>Cao trào kháng Nhật cứu nước (từ 3/1945): Nhật đảo chính Pháp (9/3/1945). Đảng ra Chỉ thị "Nhật-Pháp bắn nhau và hành động của chúng ta". Phát động cao trào kháng Nhật, khởi nghĩa từng phần.</li>
+                            <li>Tổng khởi nghĩa Tháng Tám 1945: Thời cơ đến (Nhật đầu hàng Đồng minh). Đảng phát lệnh Tổng khởi nghĩa. Nhân dân cả nước nổi dậy giành chính quyền. Ngày 2/9/1945, Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập, khai sinh nước Việt Nam Dân chủ Cộng hòa.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Ý nghĩa lịch sử của Cách mạng Tháng Tám:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Phá tan xiềng xích nô lệ của Pháp-Nhật, lật đổ chế độ phong kiến.</li>
+                            <li>Mở ra kỷ nguyên mới: độc lập dân tộc gắn liền với chủ nghĩa xã hội.</li>
+                            <li>Cổ vũ phong trào giải phóng dân tộc trên thế giới.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chuong2" class="content-section space-y-6 hidden">
+                <h2 class="text-3xl font-semibold text-[#5d4037] border-b-2 border-[#c0a080] pb-2">Chương 2: Đảng lãnh đạo hai cuộc kháng chiến chống thực dân Pháp và đế quốc Mỹ (1945 – 1975)</h2>
+                 <p class="italic text-gray-700">Chương này tập trung vào vai trò lãnh đạo của Đảng trong hai cuộc kháng chiến trường kỳ của dân tộc: chống thực dân Pháp (1945-1954) và chống đế quốc Mỹ (1954-1975). Nội dung bao gồm các chủ trương, đường lối kháng chiến, các chiến dịch quan trọng và thắng lợi vẻ vang, đỉnh cao là Đại thắng Mùa Xuân 1975, giải phóng hoàn toàn miền Nam, thống nhất đất nước.</p>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">1. Giai đoạn 1945 – 1954: Kháng chiến chống thực dân Pháp <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Hoàn cảnh lịch sử sau Cách mạng Tháng Tám:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>"Ngàn cân treo sợi tóc": thù trong giặc ngoài (quân Tưởng, Anh, Pháp, Nhật; bọn phản động), kinh tế kiệt quệ, nạn đói, nạn dốt.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Chủ trương của Đảng:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Chỉ thị "Kháng chiến kiến quốc" (25/11/1945): Kẻ thù chính là thực dân Pháp. Nhiệm vụ: củng cố chính quyền, chống Pháp xâm lược, bài trừ nội phản, cải thiện đời sống nhân dân.</li>
+                            <li>Đường lối kháng chiến: Toàn dân, toàn diện, trường kỳ, tự lực cánh sinh, tranh thủ sự ủng hộ quốc tế. (Thể hiện trong Lời kêu gọi toàn quốc kháng chiến 19/12/1946 của Chủ tịch Hồ Chí Minh và tác phẩm "Kháng chiến nhất định thắng lợi" của Trường Chinh).</li>
+                            <li>Đại hội II của Đảng (2/1951): Thông qua Chính cương Đảng Lao động Việt Nam. Đưa Đảng ra hoạt động công khai. Mục tiêu: Đánh đuổi đế quốc xâm lược, giành độc lập thống nhất hoàn toàn, xóa bỏ tàn tích phong kiến, phát triển chế độ dân chủ nhân dân, gây cơ sở cho CNXH.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Các chiến dịch lớn và sự kiện quan trọng:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Chiến dịch Việt Bắc Thu - Đông (1947): Phá tan âm mưu "đánh nhanh thắng nhanh" của Pháp.</li>
+                            <li>Chiến dịch Biên giới Thu - Đông (1950): Giành thế chủ động trên chiến trường chính Bắc Bộ.</li>
+                            <li>Chiến cuộc Đông - Xuân 1953-1954 và Chiến dịch Điện Biên Phủ (1954): Đập tan kế hoạch Nava, buộc Pháp ký Hiệp định Giơnevơ, kết thúc chiến tranh, lập lại hòa bình ở Đông Dương. Miền Bắc được giải phóng.</li>
+                        </ul>
+                         <p class="mt-2"><strong>Ý nghĩa thắng lợi kháng chiến chống Pháp:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Bảo vệ và phát triển thành quả Cách mạng Tháng Tám.</li>
+                            <li>Chấm dứt ách thống trị của thực dân Pháp.</li>
+                            <li>Cổ vũ mạnh mẽ phong trào giải phóng dân tộc trên thế giới.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">2. Giai đoạn 1954 – 1975: Kháng chiến chống đế quốc Mỹ, cứu nước <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Bối cảnh lịch sử:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Sau Hiệp định Giơnevơ, đất nước tạm thời chia cắt làm hai miền.</li>
+                            <li>Mỹ nhảy vào thay Pháp, dựng lên chính quyền tay sai Ngô Đình Diệm ở miền Nam, âm mưu chia cắt lâu dài Việt Nam.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Chủ trương của Đảng ở hai miền:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Miền Bắc: Tiến hành cách mạng xã hội chủ nghĩa, xây dựng hậu phương lớn cho tiền tuyến miền Nam.</li>
+                            <li>Miền Nam: Tiến hành cách mạng dân tộc dân chủ nhân dân, đấu tranh chống Mỹ - Diệm, giải phóng miền Nam, thống nhất đất nước.</li>
+                            <li>Đại hội III (9/1960): Đề ra đường lối chung của cách mạng Việt Nam trong giai đoạn mới, xác định vai trò, nhiệm vụ của cách mạng hai miền.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Các chiến lược chiến tranh Mỹ áp dụng ở Việt Nam và cuộc đấu tranh của ta:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>"Chiến tranh đơn phương" (1954-1960):</strong> Mỹ dùng chính quyền Ngô Đình Diệm. Ta có phong trào Đồng Khởi (1959-1960).</li>
+                            <li><strong>"Chiến tranh đặc biệt" (1961-1965):</strong> "Người Việt đánh người Việt" bằng vũ khí Mỹ. Ta đánh bại chiến lược này bằng các chiến thắng Ấp Bắc, Bình Giã...</li>
+                            <li><strong>"Chiến tranh cục bộ" (1965-1968):</strong> Mỹ trực tiếp đưa quân vào miền Nam và ném bom miền Bắc. Ta đánh bại bằng các chiến thắng Vạn Tường, mùa khô 1965-1966, 1966-1967, và cuộc Tổng tiến công và nổi dậy Tết Mậu Thân 1968. Sự kiện Vịnh Bắc Bộ (8/1964) là cái cớ Mỹ mở rộng chiến tranh. Chiến dịch Khe Sanh (1968).</li>
+                            <li><strong>"Việt Nam hóa chiến tranh" và "Đông Dương hóa chiến tranh" (1969-1973):</strong> Dùng người Việt đánh người Việt, người Đông Dương đánh người Đông Dương. Ta đánh bại bằng các thắng lợi trên Đường 9 - Nam Lào (1971), cuộc tiến công chiến lược 1972, đặc biệt là "Điện Biên Phủ trên không" (12/1972) đập tan cuộc tập kích chiến lược bằng B52 của Mỹ vào Hà Nội, Hải Phòng, buộc Mỹ ký Hiệp định Paris (1/1973).</li>
+                        </ul>
+                        <p class="mt-2"><strong>Nội dung kháng chiến chống Mỹ (một số nghị quyết quan trọng):</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Nghị quyết TW 15 (khóa II, 1/1959): Cho phép sử dụng bạo lực cách mạng ở miền Nam.</li>
+                            <li>Nghị quyết TW 11 (3/1965), Nghị quyết TW 12 (12/1965): Quyết tâm đánh thắng giặc Mỹ xâm lược.</li>
+                        </ul>
+                         <p class="mt-2"><strong>Cuộc Tổng tiến công và nổi dậy Mùa Xuân 1975:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Chiến dịch Tây Nguyên (mở màn Buôn Ma Thuột).</li>
+                            <li>Chiến dịch Huế - Đà Nẵng.</li>
+                            <li>Chiến dịch Hồ Chí Minh lịch sử (kết thúc 30/4/1975).</li>
+                        </ul>
+                        <p class="mt-2"><strong>Ý nghĩa thắng lợi kháng chiến chống Mỹ:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Kết thúc 21 năm chiến đấu chống Mỹ và 30 năm chiến tranh giải phóng dân tộc.</li>
+                            <li>Hoàn thành cách mạng dân tộc dân chủ nhân dân trong cả nước, thống nhất đất nước.</li>
+                            <li>Mở ra kỷ nguyên mới: cả nước độc lập, thống nhất, đi lên CNXH.</li>
+                            <li>Tác động mạnh mẽ đến tình hình thế giới, cổ vũ phong trào giải phóng dân tộc.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chuong3" class="content-section space-y-6 hidden">
+                <h2 class="text-3xl font-semibold text-[#5d4037] border-b-2 border-[#c0a080] pb-2">Chương 3: Đảng lãnh đạo cả nước quá độ lên CNXH và tiến hành công cuộc Đổi mới (1975 – Nay)</h2>
+                <p class="italic text-gray-700">Sau Đại thắng Mùa Xuân 1975, đất nước thống nhất, cả nước bước vào thời kỳ quá độ lên Chủ nghĩa Xã hội. Chương này đề cập đến những chủ trương, chính sách của Đảng trong giai đoạn đầu xây dựng đất nước, những khó khăn, khủng hoảng và đặc biệt là quá trình hình thành, triển khai đường lối Đổi mới từ Đại hội VI (1986) đến nay, tập trung vào đổi mới kinh tế và hệ thống chính trị.</p>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">1. Một số mốc thời gian sau đại thắng mùa xuân 1975 <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Hội nghị Hiệp thương thống nhất đất nước về mặt nhà nước:</strong> Lần 1 (11/1975), Lần 2 (4/1976).</li>
+                            <li><strong>Tổng tuyển cử bầu Quốc hội chung cả nước (Quốc hội khóa VI):</strong> 25/4/1976.</li>
+                            <li><strong>Kỳ họp thứ nhất Quốc hội thống nhất:</strong> 6/1976 - 7/1976. Quyết định tên nước là Cộng hòa Xã hội Chủ nghĩa Việt Nam, Quốc huy, Quốc kỳ, Quốc ca, Thủ đô Hà Nội, Sài Gòn đổi tên thành TP. Hồ Chí Minh.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">2. Chủ trương của Đảng về Công nghiệp hoá (CNH) <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Khái niệm Công nghiệp hóa (CNH):</strong> Là quá trình chuyển đổi căn bản, toàn diện các hoạt động sản xuất, kinh doanh, dịch vụ và quản lý kinh tế - xã hội từ sử dụng lao động thủ công là chính sang sử dụng một cách phổ biến sức lao động cùng với công nghệ, phương tiện, phương pháp tiên tiến, hiện đại, dựa trên sự phát triển của công nghiệp và tiến bộ khoa học - công nghệ, tạo ra năng suất lao động xã hội cao.</p>
+                        
+                        <p class="mt-2"><strong>Nội dung CNH qua các kỳ đại hội:</strong></p>
+                        <p class="font-semibold mt-1">Trước Đổi mới (ưu tiên phát triển công nghiệp nặng):</p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Đại hội III (1960 - miền Bắc):</strong> Xác định CNH XHCN là nhiệm vụ trung tâm trong suốt thời kỳ quá độ. Ưu tiên phát triển công nghiệp nặng một cách hợp lý, đồng thời ra sức phát triển nông nghiệp và công nghiệp nhẹ.</li>
+                            <li><strong>Đại hội IV (1976):</strong> Đường lối CNH XHCN: ưu tiên phát triển công nghiệp nặng một cách hợp lý trên cơ sở phát triển nông nghiệp và công nghiệp nhẹ.</li>
+                            <li><strong>Đại hội V (1982):</strong> Coi nông nghiệp là mặt trận hàng đầu, ra sức phát triển công nghiệp sản xuất hàng tiêu dùng; việc xây dựng và phát triển công nghiệp nặng trong giai đoạn này cần làm có mức độ, vừa sức.</li>
+                        </ul>
+                        <p class="font-semibold mt-1">Hạn chế của CNH trước Đổi mới và nguyên nhân:</p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Hạn chế: Cơ cấu kinh tế mất cân đối, công nghiệp nặng không hiệu quả, nông nghiệp và công nghiệp nhẹ trì trệ, đời sống nhân dân khó khăn.</li>
+                            <li>Nguyên nhân: Chủ quan duy ý chí, nóng vội, mô hình CNH theo kiểu cũ (ưu tiên công nghiệp nặng), cơ chế kế hoạch hóa tập trung quan liêu bao cấp.</li>
+                        </ul>
+
+                        <p class="font-semibold mt-1">Chủ trương CNH thời kỳ Đổi mới (CNH, HĐH gắn với kinh tế tri thức, kinh tế thị trường định hướng XHCN):</p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Đại hội VI (1986):</strong> Chưa đề ra chủ trương CNH một cách cụ thể, tập trung giải quyết vấn đề lương thực, thực phẩm, hàng tiêu dùng và hàng xuất khẩu.</li>
+                            <li><strong>Đại hội VII (1991):</strong> CNH đất nước theo hướng hiện đại, ưu tiên phát triển các ngành công nghiệp có khả năng thu hồi vốn nhanh, phục vụ sản xuất nông nghiệp và hàng tiêu dùng.</li>
+                            <li><strong>Đại hội VIII (1996):</strong> Đẩy mạnh CNH, HĐH đất nước. Mục tiêu đến năm 2020 cơ bản trở thành một nước công nghiệp.</li>
+                            <li><strong>Đại hội IX (2001):</strong> Phát triển kinh tế tri thức, CNH, HĐH rút ngắn.</li>
+                            <li><strong>Đại hội X (2006):</strong> Đẩy mạnh CNH, HĐH gắn với phát triển kinh tế tri thức.</li>
+                            <li><strong>Đại hội XI (2011):</strong> Tiếp tục đổi mới mô hình tăng trưởng, cơ cấu lại nền kinh tế; đẩy mạnh CNH, HĐH gắn với phát triển kinh tế tri thức.</li>
+                            <li><strong>Đại hội XII (2016):</strong> Tiếp tục đổi mới mô hình tăng trưởng, nâng cao chất lượng tăng trưởng, năng suất lao động, sức cạnh tranh của nền kinh tế.</li>
+                             <li><strong>Đại hội XIII (2021):</strong> Đẩy mạnh CNH, HĐH đất nước trên nền tảng khoa học công nghệ, đổi mới sáng tạo và những thành tựu của Cách mạng công nghiệp lần thứ tư.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold mb-2 cursor-pointer flex justify-between items-center">3. Chủ trương của Đảng về Kinh tế thị trường (KTTT) <i class="fas fa-chevron-down"></i></h3>
+                    <div class="details">
+                        <p><strong>Cơ chế kinh tế kế hoạch hoá tập trung, quan liêu bao cấp:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Đặc trưng:</strong> Nhà nước quản lý kinh tế chủ yếu bằng mệnh lệnh hành chính; các chỉ tiêu kế hoạch là pháp lệnh; doanh nghiệp không có quyền tự chủ sản xuất kinh doanh; giá cả do nhà nước quy định; chế độ tem phiếu.</li>
+                            <li><strong>Hạn chế:</strong> Thủ tiêu cạnh tranh, kìm hãm tiến bộ khoa học công nghệ; triệt tiêu động lực kinh tế; bộ máy quản lý cồng kềnh, kém hiệu quả; gây lãng phí, tham nhũng.</li>
+                            <li><strong>Nguyên nhân tồn tại:</strong> Do nhận thức giản đơn về CNXH, duy trì quá lâu cơ chế bao cấp, ảnh hưởng của mô hình kinh tế Liên Xô.</li>
+                        </ul>
+                        <p class="mt-2"><strong>Sự thay đổi tư duy về KTTT của Đảng từ Đại hội VI:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>Đại hội VI (12/1986):</strong> Bước ngoặt trong đổi mới tư duy kinh tế. Chủ trương xây dựng nền kinh tế hàng hoá nhiều thành phần vận động theo cơ chế thị trường có sự quản lý của Nhà nước. Xóa bỏ cơ chế tập trung quan liêu bao cấp.</li>
+                            <li><strong>Đại hội VII (6/1991):</strong> Tiếp tục khẳng định chủ trương phát triển kinh tế hàng hoá nhiều thành phần, vận hành theo cơ chế thị trường có sự quản lý của Nhà nước theo định hướng XHCN.</li>
+                            <li><strong>Đại hội VIII (1996):</strong> Xây dựng nền kinh tế hàng hóa nhiều thành phần vận hành theo cơ chế thị trường, có sự quản lý của Nhà nước theo định hướng XHCN.</li>
+                            <li><strong>Đại hội IX (2001):</strong> Lần đầu tiên chính thức đưa ra khái niệm "kinh tế thị trường định hướng xã hội chủ nghĩa". Coi đây là mô hình kinh tế tổng quát của nước ta trong thời kỳ quá độ.</li>
+                            <li><strong>Đại hội X (2006):</strong> Tiếp tục hoàn thiện thể chế KTTT định hướng XHCN.</li>
+                            <li><strong>Đại hội XI (2011):</strong> Hoàn thiện thể chế KTTT định hướng XHCN là một trong ba đột phá chiến lược.</li>
+                            <li><strong>Đại hội XII (2016):</strong> Tiếp tục hoàn thiện đồng bộ thể chế phát triển KTTT định hướng XHCN.</li>
+                            <li><strong>Đại hội XIII (2021):</strong> Hoàn thiện toàn diện, đồng bộ thể chế phát triển KTTT định hướng XHCN, tạo môi trường thuận lợi để huy động, phân bổ và sử dụng có hiệu quả các nguồn lực.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="noResults" class="text-center py-10 text-gray-500 hidden">
+                <i class="fas fa-search fa-3x mb-3"></i>
+                <p class="text-xl">Không tìm thấy nội dung phù hợp với từ khóa của bạn.</p>
+            </div>
+        </main>
+
+        <footer class="text-center mt-12 py-4 border-t border-gray-300">
+            <p class="text-sm text-gray-500">&copy; 2025 - Công cụ ôn tập Lịch sử Đảng. Chúc bạn thi tốt!</p>
+        </footer>
+    </div>
+
+    <script>
+        const navButtons = document.querySelectorAll('.nav-button');
+        const contentSections = document.querySelectorAll('.content-section');
+        const contentArea = document.getElementById('contentArea');
+        const searchInput = document.getElementById('searchInput');
+        const noResultsDiv = document.getElementById('noResults');
+        let originalContent = {}; 
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        function removeHighlight(element) {
+            const highlights = element.querySelectorAll('span.search-highlight');
+            highlights.forEach(span => {
+                span.outerHTML = span.innerHTML;
+            });
+        }
+        
+        function storeOriginalContent() {
+            contentSections.forEach(section => {
+                originalContent[section.id] = section.innerHTML;
+            });
+        }
+
+        function restoreOriginalContent(sectionId) {
+            if (originalContent[sectionId]) {
+                document.getElementById(sectionId).innerHTML = originalContent[sectionId];
+            }
+        }
+        
+        function performSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            let hasResults = false;
+
+            contentSections.forEach(section => {
+                restoreOriginalContent(section.id); // Restore before new search
+                
+                const sectionVisible = !section.classList.contains('hidden');
+                if (!query) { // If search query is empty, ensure all sections are potentially visible
+                    if (sectionVisible) hasResults = true; 
+                    return; // No highlighting needed
+                }
+
+                let sectionHasMatch = false;
+                const textElements = section.querySelectorAll('p, li, td, th, h3, h2'); // Include headers in search
+                
+                textElements.forEach(el => {
+                    const originalText = el.textContent || el.innerText;
+                    if (originalText.toLowerCase().includes(query)) {
+                        sectionHasMatch = true;
+                        el.innerHTML = highlightText(el.innerHTML, query); // Highlight HTML content to preserve structure
+                    }
+                });
+
+                if (sectionHasMatch) {
+                    section.classList.remove('hidden'); // Show section if it has matches
+                    hasResults = true;
+                    // Ensure all parent expandable sections are open if a match is found within
+                    let currentElement = section.querySelector('.search-highlight');
+                    while(currentElement) {
+                        if (currentElement.classList && currentElement.classList.contains('details')) {
+                            if (!currentElement.classList.contains('open')) {
+                                currentElement.classList.add('open');
+                                const icon = currentElement.previousElementSibling.querySelector('i');
+                                if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                            }
+                        }
+                        currentElement = currentElement.parentElement;
+                    }
+
+                } else if (!sectionVisible && query) { 
+                    section.classList.add('hidden');
+                } else if (sectionVisible && query && !sectionHasMatch) {
+                     section.classList.add('hidden'); // Hide if visible but no match for current query
+                }
+            });
+
+            if (!query) { // If search is cleared, restore default view (first tab active or based on last click)
+                const activeButton = document.querySelector('.nav-button.active');
+                if (activeButton) {
+                    document.getElementById(activeButton.dataset.target).classList.remove('hidden');
+                } else if (navButtons.length > 0) { // Default to first tab if none active
+                    navButtons[0].click();
+                }
+                 noResultsDiv.classList.add('hidden');
+                 return;
+            }
+
+            if (hasResults) {
+                noResultsDiv.classList.add('hidden');
+            } else {
+                noResultsDiv.classList.remove('hidden');
+                 contentSections.forEach(section => section.classList.add('hidden'));
+            }
+        }
+
+        searchInput.addEventListener('input', performSearch);
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                contentSections.forEach(section => {
+                    section.classList.add('hidden');
+                    restoreOriginalContent(section.id); // Restore when switching tabs
+                });
+                
+                const targetId = button.dataset.target;
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                }
+                searchInput.value = ''; // Clear search when changing tabs
+                performSearch(); // Re-apply search or clear highlights
+                noResultsDiv.classList.add('hidden');
+            });
+        });
+
+        contentArea.addEventListener('click', function(event) {
+            const header = event.target.closest('h3');
+            if (header) {
+                const details = header.nextElementSibling;
+                const icon = header.querySelector('i');
+                if (details && details.classList.contains('details')) {
+                    details.classList.toggle('open');
+                    if (icon) {
+                        icon.classList.toggle('fa-chevron-down');
+                        icon.classList.toggle('fa-chevron-up');
+                    }
+                }
+            }
+        });
+
+        // Initialize: Store original content and show the first chapter by default
+        storeOriginalContent();
+        if (navButtons.length > 0) {
+            navButtons[0].click(); // Simulate a click on the first button
+        }
+    </script>
+</body>
+</html>
